@@ -1,14 +1,15 @@
 name: EAS Build Android
 
 on:
-  workflow_dispatch: # permite ejecutar el build manualmente desde GitHub
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Clonar repositorio
+        uses: actions/checkout@v3
 
       - name: Instalar Node.js
         uses: actions/setup-node@v3
@@ -18,7 +19,16 @@ jobs:
       - name: Instalar EAS CLI
         run: npm install -g eas-cli
 
-      - name: Autenticar con EAS
+      - name: Verificar existencia del token
+        run: |
+          if [ -z "${{ secrets.EXPO_TOKEN }}" ]; then
+            echo "EXPO_TOKEN está vacío o no definido"
+            exit 1
+          else
+            echo "EXPO_TOKEN está presente"
+          fi
+
+      - name: Autenticarse con Expo
         run: eas login --token ${{ secrets.EXPO_TOKEN }}
 
       - name: Compilar APK
