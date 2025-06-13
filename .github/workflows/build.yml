@@ -1,0 +1,25 @@
+name: EAS Build Android
+
+on:
+  workflow_dispatch: # permite ejecutar el build manualmente desde GitHub
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Instalar EAS CLI
+        run: npm install -g eas-cli
+
+      - name: Autenticar con EAS
+        run: eas login --token ${{ secrets.EXPO_TOKEN }}
+
+      - name: Compilar APK
+        run: eas build --platform android --non-interactive --profile production
