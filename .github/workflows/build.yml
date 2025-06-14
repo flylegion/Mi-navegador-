@@ -28,8 +28,8 @@ jobs:
         run: |
           echo "MYAPP_RELEASE_STORE_FILE=my-release-key.jks" >> android/gradle.properties
           echo "MYAPP_RELEASE_KEY_ALIAS=${{ secrets.MY_KEY_ALIAS }}" >> android/gradle.properties
-          echo "MYAPP_RELEASE_STORE_PASSWORD=${{ secrets.MY_KEYSTORE_PASSWORD }}" >> android/gradle.properties
-          echo "MYAPP_RELEASE_KEY_PASSWORD=${{ secrets.MY_KEY_PASSWORD }}" >> android/gradle.properties
+          echo "MYAPP_RELEASE_STORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}" >> android/gradle.properties
+          echo "MYAPP_RELEASE_KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}" >> android/gradle.properties
 
       - name: Compilar APK firmada
         working-directory: android
