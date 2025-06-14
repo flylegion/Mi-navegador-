@@ -28,7 +28,11 @@ jobs:
             echo "EXPO_TOKEN está presente"
           fi
 
-      - name: Compilar APK
+      - name: Decodificar y restaurar keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/app/my-release-key.jks
+
+      - name: Compilar APK firmada
         run: eas build --platform android --non-interactive --profile production
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
