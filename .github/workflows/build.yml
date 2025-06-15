@@ -19,7 +19,7 @@ jobs:
 
       - name: Decode Keystore
         run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/app/release.keystore
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android/app/my-release-keystore
 
       - name: Set up gradle.properties
         run: |
